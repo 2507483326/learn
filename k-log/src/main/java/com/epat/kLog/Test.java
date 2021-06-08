@@ -13,6 +13,26 @@ public class Test {
         logger.warn("测试warn");
         logger.debug("测试debug");
         logger.error("测试error");
+        logger.info("测试info");
+        logger.warn("测试warn");
+        logger.debug("测试debug");
+        logger.error("测试error");
+        logger.info("测试info");
+        logger.warn("测试warn");
+        logger.debug("测试debug");
+        logger.error("测试error");
+        logger.info("测试info");
+        logger.warn("测试warn");
+        logger.debug("测试debug");
+        logger.error("测试error");
+        logger.info("测试info");
+        logger.warn("测试warn");
+        logger.debug("测试debug");
+        logger.error("测试error");
+        logger.info("测试info");
+        logger.warn("测试warn");
+        logger.debug("测试debug");
+        logger.error("测试error");
     }
 
 }
