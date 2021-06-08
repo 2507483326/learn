@@ -11,9 +11,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class FileLogHandler {
 
 
-    private LinkedBlockingQueue<String> linkedBlockingQueue = new LinkedBlockingQueue<>();
+    private LinkedBlockingQueue<String> linkedBlockingQueue = new LinkedBlockingQueue<>(200);
 
     private String fileName;
+
+    private Boolean isNoBlock = false;
 
     public FileLogHandler (String fileName) {
         this.fileName = fileName;
@@ -24,7 +26,11 @@ public class FileLogHandler {
 
     public void push (String message) {
         try {
-            linkedBlockingQueue.put(message);
+            if (isNoBlock) {
+                linkedBlockingQueue.offer(message);
+            } else {
+                linkedBlockingQueue.put(message);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

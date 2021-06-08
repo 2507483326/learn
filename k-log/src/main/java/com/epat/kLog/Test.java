@@ -1,8 +1,5 @@
 package com.epat.kLog;
 
-
-import ch.qos.logback.classic.LoggerContext;
-import org.slf4j.LoggerFactory;
 /**
  * @author 李涛
  * @date : 2021/6/8 9:49
