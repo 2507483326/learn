@@ -34,12 +34,10 @@ public class FileLogRunnable implements Runnable{
         try {
             while (true){
                 StringBuffer outMessage = new StringBuffer();
-                for (int i = 0; i < 20; i++) {
-                    String message = this.fileLogHandler.poll();
-                    if (message != null) {
-                        outMessage.append(message);
-                        outMessage.append("\n");
-                    }
+                String message = this.fileLogHandler.poll();
+                if (message != null) {
+                    outMessage.append(message);
+                    outMessage.append("\n");
                 }
                 writer.write(outMessage.toString());
                 writer.flush();
