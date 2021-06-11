@@ -36,6 +36,12 @@ public class CopyConfig {
      */
     private String needCopyNames;
 
+    /**
+     * 新的文件类型
+     */
+    private String newFileType;
+
+
 
     public String getOldPath() {
         return oldPath;
@@ -85,6 +91,14 @@ public class CopyConfig {
         this.needCopyNames = needCopyNames;
     }
 
+    public String getNewFileType() {
+        return newFileType;
+    }
+
+    public void setNewFileType(String newFileType) {
+        this.newFileType = newFileType;
+    }
+
     @Override
     public String toString() {
         return "CopyConfig{" +
@@ -94,6 +108,7 @@ public class CopyConfig {
                 ", newPrefix='" + newPrefix + '\'' +
                 ", newName='" + newName + '\'' +
                 ", needCopyNames='" + needCopyNames + '\'' +
+                ", newFileType='" + newFileType + '\'' +
                 '}';
     }
 }

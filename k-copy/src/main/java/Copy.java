@@ -147,20 +147,22 @@ public class Copy {
      * @return
      */
     public static String getNewFileName (String fileName) {
-        if (isNotEmpty(copyConfig.getNewName())) {
-            int index = fileName.lastIndexOf(".");
-            return copyConfig.getNewName() + (num++) + fileName.substring(index);
-        }
         int index = fileName.lastIndexOf(".");
+        String fileType = fileName.substring(index);
+        if (isNotEmpty(copyConfig.getNewFileType())) {
+            fileType = copyConfig.getNewFileType();
+        }
+        if (isNotEmpty(copyConfig.getNewName())) {
+            return copyConfig.getNewName() + (num++) + fileType;
+        }
         String result = fileName.substring(0, index);
-        String suffix = fileName.substring(index);
         if (isNotEmpty(copyConfig.getNewPrefix())) {
             result = copyConfig.getNewPrefix() + result;
         }
         if (isNotEmpty(copyConfig.getNewSuffix())) {
             result = result + copyConfig.getNewSuffix();
         }
-        return result + suffix;
+        return result + fileType;
     }
 
     /**
