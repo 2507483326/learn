@@ -1,5 +1,4 @@
 oldPath=E:\test\a
 newPath=E:\test\b
-newSuffix=测试后缀
-newPrefix=测试前缀
-needCopyNames=test.java
+needCopyNames=(.*)java
+newFileType=.javatxt

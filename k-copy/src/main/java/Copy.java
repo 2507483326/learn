@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -11,41 +14,47 @@ import java.util.Map;
  */
 public class Copy {
 
+    public static Logger logger = LogManager.getLogger();
+
     public static CopyConfig copyConfig;
 
     public static String [] needCopyNamesArray;
 
     public static Integer num = 1;
 
+
+    public static void copy () throws IOException, IllegalAccessException {
+        copyConfig = loadConfig();
+        if (copyConfig == null) {
+            throw new RuntimeException("加载配置文件失败");
+        }
+        copy(new File(copyConfig.getOldPath()), new File(copyConfig.getNewPath()));
+    }
+
     /**
      * 复制文件到新的目录
      * @throws IOException
      * @throws IllegalAccessException
      */
-    public static void copy () throws IOException, IllegalAccessException {
-        num = 0;
-        copyConfig = loadConfig();
-        if (copyConfig == null) {
-            throw new RuntimeException("加载配置文件失败");
-        }
-        List<File> result = getNeedCopyFiles();
-        copyToNewPath(result);
+    public static void copy (File oldFile, File newFile) throws IOException, IllegalAccessException {
+        List<File> result = getNeedCopyFiles(oldFile);
+        copyToNewPath(result, newFile);
+        copyChildFold(oldFile, newFile);
     }
 
     /**
      * 获取需要复制的文件
      * @return
      */
-    public static List<File> getNeedCopyFiles () {
+    public static List<File> getNeedCopyFiles (File oldFile) {
         List<File> result = new ArrayList<>();
-        File pathFile = new File(copyConfig.getOldPath());
-        if (!pathFile.exists()) {
+        if (!oldFile.exists()) {
             throw new RuntimeException("该文件或目录不存在");
         }
-        if (!pathFile.isDirectory()) {
+        if (!oldFile.isDirectory()) {
             throw new RuntimeException("该路径不是文件夹");
         }
-        File [] files = pathFile.listFiles();
+        File [] files = oldFile.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
                 continue;
@@ -57,6 +66,17 @@ public class Copy {
         }
         return result;
     };
+
+    public static void copyChildFold (File oldFile, File newFile) throws IOException, IllegalAccessException {
+        File [] files = oldFile.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                File childOldFile = new File(oldFile.getPath() + File.separatorChar + file.getName());
+                File childNewFile = new File(newFile.getPath() + File.separatorChar + file.getName());
+                copy(childOldFile, childNewFile);
+            }
+        }
+    }
 
     /**
      * 加载配置文件
@@ -85,7 +105,7 @@ public class Copy {
             }
             return copyConfig;
         } catch (Exception e) {
-            System.out.println("加载配置文件失败");
+
         }
         return null;
     }
@@ -104,6 +124,7 @@ public class Copy {
             needCopyNamesArray = needCopyNames.split(",");
         }
         for (String s : needCopyNamesArray) {
+            System.out.println(file.getName());
             if (file.getName().matches(s)) {
                 return true;
             }
@@ -116,18 +137,18 @@ public class Copy {
      * @param needCopyFiles
      * @throws IOException
      */
-    public static void copyToNewPath(List<File> needCopyFiles) throws IOException {
-        File pathFile = new File(copyConfig.getNewPath());
-        if (!pathFile.exists()) {
-            throw new RuntimeException("该文件或目录不存在");
+    public static void copyToNewPath(List<File> needCopyFiles, File fileDirectory) throws IOException {
+        if (!fileDirectory.exists()) {
+            fileDirectory.mkdirs();
         }
-        if (!pathFile.isDirectory()) {
+        if (!fileDirectory.isDirectory()) {
             throw new RuntimeException("该路径不是文件夹");
         }
         System.out.println("开始复制, 总数量: " + needCopyFiles.size());
         int rate = 1;
+        num = 1;
         for (File needCopyFile : needCopyFiles) {
-            File newFile = new File(pathFile.getPath() + "/" + getNewFileName(needCopyFile.getName()));
+            File newFile = new File(fileDirectory.getPath() + File.separatorChar + getNewFileName(needCopyFile.getName()));
             newFile.createNewFile();
             FileInputStream fileInputStream = new FileInputStream(needCopyFile);
             FileOutputStream fileOutputStream = new FileOutputStream(newFile);
