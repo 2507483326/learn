@@ -1,4 +1,0 @@
-oldPath=E:\test\a
-newPath=E:\test\b
-needCopyNames=(.*)java
-newFileType=.javatxt
