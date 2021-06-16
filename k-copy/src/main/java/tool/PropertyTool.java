@@ -1,34 +1,31 @@
-package config;
+package tool;
 
-import handler.ChannelFileHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 /**
  * @author 李涛
  * @date : 2021/6/16 16:51
  */
-public class PropertyUtil {
-    public static Logger logger = LogManager.getLogger(PropertyUtil.class);
+public class PropertyTool {
+    public static Logger logger = LogManager.getLogger(PropertyTool.class);
 
     public static Properties getConfig(String name){
-        Properties props=null;
+        Properties props = null;
         try{
             props = new Properties();
-            InputStream in = PropertyUtil.class.getClassLoader().getResourceAsStream(name);
+            InputStream in = PropertyTool.class.getClassLoader().getResourceAsStream(name);
             BufferedReader bf = new BufferedReader(new InputStreamReader(in));
             props.load(bf);
             in.close();
-        }catch(Exception ex){
+        } catch(Exception ex){
             ex.printStackTrace();
         }
         return props;

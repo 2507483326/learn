@@ -17,13 +17,13 @@ public class CopyModel {
     /**
      * 复制之前文件夹路径
      */
-    private String oldPath;
+    private String sourcePath;
 
     /**
      * 复制之后文件夹路径
      */
 
-    private String newPath;
+    private String targetPath;
 
     /**
      * 新的后缀
