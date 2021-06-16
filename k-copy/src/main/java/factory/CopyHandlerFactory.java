@@ -11,8 +11,11 @@ import handler.ThreadFileHandler;
  */
 public class CopyHandlerFactory {
 
+    // 普通
     public static Integer NORMAL = 1;
+    // nio
     public static Integer CHANNEL = 2;
+    // 多线程
     public static Integer THREAD = 3;
 
 
