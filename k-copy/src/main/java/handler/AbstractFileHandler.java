@@ -102,7 +102,7 @@ public abstract class AbstractFileHandler {
         }
         for (int i = 0; i < childFiles.size(); i++) {
             File file = childFiles.get(i);
-            File outFile = new File(target.getPath() + File.separatorChar + getNewFileName(file.getName(), newSuffix, newPrefix, newName, newFileType, i + 1));
+            File outFile = new File(target.getPath() + File.separatorChar + getNewFileName(file.getName(), newSuffix, newPrefix, newName, newFileType, childFiles.size() > 1 ? (i + 1) : null));
             File outParentFile = new File(outFile.getParent());
             if (!outParentFile.exists()) {
                 outParentFile.mkdirs();
@@ -154,7 +154,7 @@ public abstract class AbstractFileHandler {
             fileType = newFileType;
         }
         if (newName != null && !"".equals(newName.trim())) {
-            return newName + (count) + fileType;
+            return newName + (count == null ? "" : count) + fileType;
         }
         String result = fileName.substring(0, index);
         if (newPrefix != null && !"".equals(newPrefix.trim())) {
