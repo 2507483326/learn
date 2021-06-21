@@ -16,7 +16,7 @@ abstractFileHandler.copyAllFile(new File("A文件夹路径"), new File("B文件�
 
 #### 2.2 CopyHandlerFactory可用常量
 
-```
+```java
 1. CopyHandlerFactory.NORMAL // 通过普通的java io 流进行复制
 2. CopyHandlerFactory.CHANNEL // 通过java nio 文件通道的方式进行复制,速度会比普通的方式快
 3. CopyHandlerFactory.THREAD // 通过创建多个线程的方式进行复制，一般用于复制单个超大文件
@@ -24,7 +24,7 @@ abstractFileHandler.copyAllFile(new File("A文件夹路径"), new File("B文件�
 
 #### 2.3 copyAllFile 相关参数讲解
 
-```
+```java
 abstractFileHandler.copyAllFile(oldPath, 
 newPath, 
 newSuffix, 
@@ -40,7 +40,8 @@ copyAllFile 除了最开始的A文件夹和B文件夹两个参数外，还可以
 
 如果newSuffix不为空的话，则会将复制过去的文件的文件名名的末尾新增上newSuffix
 
-```
+```java
+AbstractFileHandler abstractFileHandler = CopyHandlerFactory.getFileHandler(CopyHandlerFactory.NORMAL);
 abstractFileHandler.copyAllFile(oldPath, 
 newPath, 
 "test", 
@@ -48,15 +49,16 @@ newPrefix,
 newName, 
 fileType, 
 needCopyNames);
-a.txt ---> atest.txt
-b.txt ---> btest.txt
+// a.txt ---> atest.txt
+// b.txt ---> btest.txt
 ```
 
 ##### 2.3.2 newPrefix 新的前缀
 
 如果newPrefix不为空的话，则会将复制过去的文件的文件名名的前面新增上newPrefix
 
-```
+```java
+AbstractFileHandler abstractFileHandler = CopyHandlerFactory.getFileHandler(CopyHandlerFactory.NORMAL);
 abstractFileHandler.copyAllFile(oldPath, 
 newPath, 
 newSuffix, 
@@ -64,15 +66,16 @@ newSuffix,
 newName, 
 fileType, 
 needCopyNames);
-a.txt ---> testa.txt
-b.txt ---> testb.txt
+// a.txt ---> testa.txt
+// b.txt ---> testb.txt
 ```
 
 ##### 2.3.3 newName 新的名称
 
 如果newName不为空的话，会将文件夹下的所有文件重命名为newName，并且newSuffix和newPrefix将不在起作用,并且会在文件的名称后面累加上数字标记，以1开始，如果文件只有一个，则不加数字标记
 
-```
+```java
+AbstractFileHandler abstractFileHandler = CopyHandlerFactory.getFileHandler(CopyHandlerFactory.NORMAL);
 abstractFileHandler.copyAllFile(oldPath, 
 newPath, 
 newSuffix, 
@@ -80,15 +83,16 @@ newPrefix,
 "test", 
 fileType, 
 needCopyNames);
-a.txt ---> test1.txt
-b.txt ---> test2.txt
+// a.txt ---> test1.txt
+// b.txt ---> test2.txt
 ```
 
 ##### 2.3.4 fileType 文件类型
 
 如果fileType 不为空的话，会将文件夹下的所有文件的类型重置为fileType声明的类型,注意文件类型要以.开头，不能包含文件后缀不允许的字符
 
-```
+```java
+AbstractFileHandler abstractFileHandler = CopyHandlerFactory.getFileHandler(CopyHandlerFactory.NORMAL);
 abstractFileHandler.copyAllFile(oldPath, 
 newPath, 
 newSuffix, 
@@ -96,8 +100,8 @@ newPrefix,
 newName, 
 ".java", 
 needCopyNames);
-a.txt ---> a.java
-b.txt ---> b.java
+// a.txt ---> a.java
+// b.txt ---> b.java
 ```
 
 ##### 2.3.5 needCopyNames 需要复制的文件
@@ -105,6 +109,7 @@ b.txt ---> b.java
 如果needCopyNames 不为空的话，复制文件时会匹配needCopyNames 中的字符，如果匹配通过，该文件才会复制
 
 ```java
+AbstractFileHandler abstractFileHandler = CopyHandlerFactory.getFileHandler(CopyHandlerFactory.NORMAL);
 List<String> needCopyNamesArray = new ArrayList();
 needCopyNamesArray.add("(.*)txt");
 abstractFileHandler.copyAllFile(oldPath, 
@@ -114,8 +119,8 @@ newPrefix,
 newName, 
 fileType, 
 needCopyNamesArray);
-a.txt ---> a.txt
-b.txt ---> b.txt
+// a.txt ---> a.txt
+// b.txt ---> b.txt
 ```
 
 这里(.*)txt会匹配所有以txt结尾的文件名称，a.txt和b.txt都是以txt结尾，所以可以被复制，新增到needCopyNamesArray可以是正则表达式，也可以是单纯的文件名称，所有添加进列表中的匹配字符都会依次与文件名进行匹配，匹配通过的文件将会被复制
