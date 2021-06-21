@@ -142,18 +142,16 @@ copyModel.getNeedCopyNames() == null ? null : Arrays.stream(copyModel.getNeedCop
 
 ```
 
-2. 在resources中，新建config.properties文件, CopyConfig.loadCopyModel()会加载config.propties文件,如果配置文件不存在，则会抛出配置文件不存在异常
-
+2. 在项目的resources目录中，新建config.properties文件, CopyConfig.loadCopyModel()会加载config.propties文件,如果配置文件不存在，则会抛出配置文件不存在异常
 3. config.properties编写,和上面的基本配置一样，needCopyNames的值用"，"分隔
 
-   ```
-   sourcePath=E://test//a
-   targetPath=E://test//b
-   newSuffix=新的前缀
-   newPrefix=新的后缀
-   newName=新的名称
-   newFileType=.javatxt
-   needCopyNames=(.*)java,(.*)txt
-   ```
+```
+sourcePath=E://test//a
+targetPath=E://test//b
+newSuffix=新的前缀
+newPrefix=新的后缀
+newName=新的名称
+newFileType=.javatxt
+needCopyNames=(.*)java,(.*)txt
+```
 
-   
