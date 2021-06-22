@@ -144,7 +144,8 @@ copyModel.getNewName(),
 copyModel.getNewFileType(), 
 copyModel.getNeedCopyNames() == null ? null : Arrays.stream(copyModel.getNeedCopyNames().split(",")).collect(Collectors.toList()));
 // 这里需要注意的是needCopyNamesArray,由于配置文件中我们配置的是字符串，以”，“分隔，这里我们需要以”，“分隔将字符串分隔为列表
-
+// 也可以直接将CopyModel作为参数传递
+abstractFileHandler.copyAllFile(copyModel);
 ```
 
 2. 在项目的resources目录中，新建config.properties文件, CopyConfig.loadCopyModel()会加载config.propties文件,如果配置文件不存在，则会抛出配置文件不存在异常

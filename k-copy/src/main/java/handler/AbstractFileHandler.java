@@ -1,9 +1,11 @@
 package handler;
 
+import model.CopyModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,6 +133,10 @@ public abstract class AbstractFileHandler {
             File nextTarget = new File(target.getPath() + File.separatorChar + newSource.getName());
             copyAllFile(newSource, nextTarget, newSuffix, newPrefix, newName, newFileType, needCopyNamesArray);
         }
+    }
+
+    public void copyAllFile (CopyModel copyModel) {
+        copyAllFile(new File(copyModel.getSourcePath()), new File(copyModel.getTargetPath()), copyModel.getNewSuffix(), copyModel.getNewPrefix(), copyModel.getNewName(), copyModel.getNewFileType(), copyModel.getNeedCopyNames() == null ? null : Arrays.stream(copyModel.getNeedCopyNames().split(",")).collect(Collectors.toList()));
     }
 
     public void copyAllFile (File source, File target) {

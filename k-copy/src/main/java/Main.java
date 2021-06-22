@@ -20,7 +20,7 @@ public class Main {
         CopyModel copyModel = CopyConfig.loadCopyModel();
         AbstractFileHandler abstractFileHandler = CopyHandlerFactory.getFileHandler(CopyHandlerFactory.CHANNEL);
         long startTime=System.currentTimeMillis();
-        abstractFileHandler.copyAllFile(new File(copyModel.getSourcePath()), new File(copyModel.getTargetPath()), copyModel.getNewSuffix(), copyModel.getNewPrefix(), copyModel.getNewName(), copyModel.getNewFileType(), copyModel.getNeedCopyNames() == null ? null : Arrays.stream(copyModel.getNeedCopyNames().split(",")).collect(Collectors.toList()));
+        abstractFileHandler.copyAllFile(copyModel);
         long endTime=System.currentTimeMillis();
         logger.info("执行耗时" + (endTime - startTime) + "ms");
     }
