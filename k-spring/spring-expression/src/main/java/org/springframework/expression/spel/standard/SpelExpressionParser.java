@@ -24,6 +24,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
+ * SpEL 解析器。实例是可重用的和线程安全的。
  * SpEL parser. Instances are reusable and thread-safe.
  *
  * @author Andy Clement

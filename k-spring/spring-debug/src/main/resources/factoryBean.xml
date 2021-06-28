@@ -18,22 +18,8 @@
                     http://www.epat.com/schema/user
                     http://www.epat.com/schema/user.xsd">
 
-	<context:component-scan base-package="com.epat"></context:component-scan>
-	<!--	测试基本spring流程-->
 
-	<!--<epat:user id="test" email="test" password="password" userName="epat"></epat:user>-->
-
-	<!--<context:property-placeholder location="classpath:applicationContext.xml"></context:property-placeholder>
-
-	<bean id="a" class="com.epat.A" init-method="init">
-		<property name="name" value="zhangsan"></property>
-	</bean>-->
-	<!--
-
-	<bean class="com.epat.MyBeanFactoryPostProcess"></bean>-->
-
-	<!--	测试factoryBean-->
-	<!--<bean id="aFactoryBean" class="com.epat.AFactoryBean">
-	</bean>-->
+	<bean id="aFactoryBean" class="com.epat.AFactoryBean">
+	</bean>
 
 </beans>

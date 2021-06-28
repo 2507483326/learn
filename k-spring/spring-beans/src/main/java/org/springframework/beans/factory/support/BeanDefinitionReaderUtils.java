@@ -106,9 +106,11 @@ public abstract class BeanDefinitionReaderUtils {
 
 		String generatedBeanName = definition.getBeanClassName();
 		if (generatedBeanName == null) {
+			// 如果bean定义名称不存在，且有父类
 			if (definition.getParentName() != null) {
 				generatedBeanName = definition.getParentName() + "$child";
 			}
+			// 如果bean有工厂类
 			else if (definition.getFactoryBeanName() != null) {
 				generatedBeanName = definition.getFactoryBeanName() + "$created";
 			}
@@ -117,7 +119,7 @@ public abstract class BeanDefinitionReaderUtils {
 			throw new BeanDefinitionStoreException("Unnamed bean definition specifies neither " +
 					"'class' nor 'parent' nor 'factory-bean' - can't generate bean name");
 		}
-
+		// 如果是内部类
 		if (isInnerBean) {
 			// Inner bean: generate identity hashcode suffix.
 			return generatedBeanName + GENERATED_BEAN_NAME_SEPARATOR + ObjectUtils.getIdentityHexString(definition);

@@ -17,23 +17,25 @@
                     http://www.springframework.org/schema/aop/spring-aop.xsd
                     http://www.epat.com/schema/user
                     http://www.epat.com/schema/user.xsd">
-
-	<context:component-scan base-package="com.epat"></context:component-scan>
-	<!--	测试基本spring流程-->
-
-	<!--<epat:user id="test" email="test" password="password" userName="epat"></epat:user>-->
-
-	<!--<context:property-placeholder location="classpath:applicationContext.xml"></context:property-placeholder>
-
-	<bean id="a" class="com.epat.A" init-method="init">
-		<property name="name" value="zhangsan"></property>
+	<bean id="custom" class="com.epat.selfPropertyEditor.Customer">
+		<property name="name" value="epat"></property>
+		<property name="address" value="湖南_长沙_岳麓"></property>
+	</bean>
+	<!--两种配置都可以 实际上AddressPropertyEditorRegistrar 做的操作只是将AddressPropertyEditor 放到customEditors这个Map中-->
+	<!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="propertyEditorRegistrars">
+			<list>
+				<bean class="com.epat.selfPropertyEditor.AddressPropertyEditorRegistrar"></bean>
+			</list>
+		</property>
 	</bean>-->
-	<!--
-
-	<bean class="com.epat.MyBeanFactoryPostProcess"></bean>-->
-
-	<!--	测试factoryBean-->
-	<!--<bean id="aFactoryBean" class="com.epat.AFactoryBean">
-	</bean>-->
-
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="com.epat.selfPropertyEditor.Address">
+					<value>com.epat.selfPropertyEditor.AddressPropertyEditor</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
 </beans>

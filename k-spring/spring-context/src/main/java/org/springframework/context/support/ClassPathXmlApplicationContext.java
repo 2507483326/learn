@@ -139,6 +139,7 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 			throws BeansException {
 
 		super(parent);
+		// 采用ant表达式解析xml路径,递归调用可以解析类似${ab${cd}}这种格式
 		setConfigLocations(configLocations);
 		if (refresh) {
 			refresh();
