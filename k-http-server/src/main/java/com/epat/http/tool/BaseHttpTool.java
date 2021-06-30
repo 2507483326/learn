@@ -106,11 +106,18 @@ public class BaseHttpTool {
     }
 
     public static void write (SocketChannel socketChannel, ByteBuffer byteBuffer) throws InterruptedException, IOException {
+        if (!socketChannel.isOpen()) {
+            return;
+        }
         int isWrit = socketChannel.write(byteBuffer);
         if (isWrit == 0) {
             while (isWrit == 0) {
                 Thread.sleep(200);
-                isWrit = socketChannel.write(byteBuffer);
+                if (socketChannel.isOpen()) {
+                    isWrit = socketChannel.write(byteBuffer);
+                } else {
+                    isWrit = 1;
+                }
             }
         }
     }
