@@ -1,6 +1,5 @@
 package com.epat;
 
-import lombok.Data;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -9,7 +8,6 @@ import org.springframework.context.ApplicationContextAware;
  * @author 李涛
  * @date : 2021/6/17 10:52
  */
-@Data
 public class A implements ApplicationContextAware {
 
 	private String name;
@@ -24,4 +22,7 @@ public class A implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+
+
+
 }

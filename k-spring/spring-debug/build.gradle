@@ -11,8 +11,10 @@ dependencies {
     compile(project(":spring-context"))
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    implementation 'org.projectlombok:lombok:1.18.8'
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    // 开启lombok会导致 没有处理程序要使用以下任何注释: org.springframework.stereotype.Service 编译问题
+
+//    implementation 'org.projectlombok:lombok:1.18.8'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
 
 test {
