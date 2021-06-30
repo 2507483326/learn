@@ -27,6 +27,15 @@ public class HttpTypeTranslate {
         if (fileType.equals(".jpg")) {
             return "image/jpg";
         }
+        if (fileType.equals(".woff")) {
+            return "font/woff2";
+        }
+        if (fileType.equals(".woff2")) {
+            return "font/woff2";
+        }
+        if (fileType.equals(".svg")) {
+            return "image/svg+xml";
+        }
         return "text/plain; charset=utf-8";
     }
 

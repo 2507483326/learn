@@ -34,6 +34,9 @@ public class WebStaticResource implements WebService{
             if (url == null || url.equals("/")) {
                 url = "/index.html";
             }
+            if (url.indexOf("?") > 0) {
+                url = url.substring(0, url.indexOf("?"));
+            }
             File file = new File(baseUrl + url);
             if (!file.exists() || file.isDirectory()) {
                 throw HttpException.HTTP_404_EXCEPTION;
