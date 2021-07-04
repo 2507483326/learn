@@ -1,0 +1,8 @@
+{
+  "bean": [
+    {
+      "name": "test",
+      "class": "com.epat.Person"
+    }
+  ]
+}
