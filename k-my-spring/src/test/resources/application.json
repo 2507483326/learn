@@ -1,0 +1,5 @@
+{
+  "bean": [
+  ],
+  "componentScan": "com.epat"
+}

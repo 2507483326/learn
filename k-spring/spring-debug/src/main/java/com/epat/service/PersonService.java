@@ -7,6 +7,5 @@ import org.springframework.stereotype.Service;
  * @author 李涛
  * @date : 2021/6/29 10:02
  */
-@Service
-public class PersonService {
+public interface PersonService {
 }

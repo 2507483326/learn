@@ -1,8 +1,39 @@
 {
   "bean": [
     {
-      "name": "test",
-      "class": "com.epat.Person"
+      "id": "school",
+      "class": "com.epat.model.School",
+      "property": [
+        {
+          "key": "teacher",
+          "ref": "teacher"
+        },
+        {
+          "key": "student",
+          "ref": "student"
+        }
+      ]
+    },
+    {
+      "id": "teacher",
+      "class": "com.epat.model.Teacher",
+      "property": [
+        {
+          "key": "student",
+          "ref": "student"
+        }
+      ]
+    },
+    {
+      "id": "student",
+      "class": "com.epat.model.Student",
+      "property": [
+        {
+          "key": "student",
+          "ref": "student"
+        }
+      ]
     }
-  ]
+  ],
+  "componentScan": "com.epat.**"
 }

@@ -23,6 +23,11 @@ public class A implements ApplicationContextAware {
 		this.applicationContext = applicationContext;
 	}
 
+	public String getName() {
+		return name;
+	}
 
-
+	public void setName(String name) {
+		this.name = name;
+	}
 }
