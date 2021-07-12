@@ -4,6 +4,7 @@ import com.epat.Application;
 import com.epat.aspect.AspectFactory;
 import com.epat.beanDefinition.BeanDefinition;
 import com.epat.beanDefinition.Property;
+import com.epat.tool.StringTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,6 +43,9 @@ public class BeanInstantiate {
     }
 
     public static Object doCreateBean (BeanFactory beanFactory, String name) throws Exception {
+        if (StringTool.isEmpty(name)) {
+            return null;
+        }
         Object bean = getBeanByCache(beanFactory, name);
         if (bean != null) {
             return bean;

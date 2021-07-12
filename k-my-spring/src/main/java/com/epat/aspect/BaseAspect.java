@@ -34,13 +34,8 @@ public class BaseAspect implements MethodInterceptor {
             Method method = aspectModel.getMethod();
             Method interceptMethod = BaseAspect.class.getMethod("interceptMethod", Integer.class, Object.class, ProceedingJoinPoint.class);
             ProceedingJoinPoint next = new ProceedingJoinPoint(this, interceptMethod, new Object[] {num, o, proceedingJoinPoint}, null);
-
-            if (!StringTool.isEmpty(aspectModel.getMethodFilter())) {
-                if (aspectModel.getMethodFilter().matches(proceedingJoinPoint.getMethod().getName())) {
-                    return method.invoke(aspectModel.getInstance(), next);
-                } else {
-                    return next.proceed();
-                }
+            if (!StringTool.isEmpty(aspectModel.getMethodFilter()) && !aspectModel.getMethodFilter().matches(proceedingJoinPoint.getMethod().getName())) {
+                return next.proceed();
             } else {
                 return method.invoke(aspectModel.getInstance(), next);
             }
@@ -49,12 +44,8 @@ public class BaseAspect implements MethodInterceptor {
             AspectModel aspectModel = aspectModels.get(num);
             Method method = aspectModel.getMethod();
             num++;
-            if (!StringTool.isEmpty(aspectModel.getMethodFilter())) {
-                if (aspectModel.getMethodFilter().matches(proceedingJoinPoint.getMethod().getName())) {
-                    return method.invoke(aspectModel.getInstance(), proceedingJoinPoint);
-                } else {
-                    return proceedingJoinPoint.proceed();
-                }
+            if (!StringTool.isEmpty(aspectModel.getMethodFilter()) && !aspectModel.getMethodFilter().matches(proceedingJoinPoint.getMethod().getName())) {
+                return proceedingJoinPoint.proceed();
             } else {
                 return method.invoke(aspectModel.getInstance(), proceedingJoinPoint);
             }
