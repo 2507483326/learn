@@ -1,11 +1,13 @@
 package com.epat.aspect;
 
+import com.epat.tool.StringTool;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 李涛
@@ -32,13 +34,30 @@ public class BaseAspect implements MethodInterceptor {
             Method method = aspectModel.getMethod();
             Method interceptMethod = BaseAspect.class.getMethod("interceptMethod", Integer.class, Object.class, ProceedingJoinPoint.class);
             ProceedingJoinPoint next = new ProceedingJoinPoint(this, interceptMethod, new Object[] {num, o, proceedingJoinPoint}, null);
-            return method.invoke(aspectModel.getO(), next);
+
+            if (!StringTool.isEmpty(aspectModel.getMethodFilter())) {
+                if (aspectModel.getMethodFilter().matches(proceedingJoinPoint.getMethod().getName())) {
+                    return method.invoke(aspectModel.getInstance(), next);
+                } else {
+                    return next.proceed();
+                }
+            } else {
+                return method.invoke(aspectModel.getInstance(), next);
+            }
         }
         if (num.intValue() == aspectModels.size() - 1) {
             AspectModel aspectModel = aspectModels.get(num);
             Method method = aspectModel.getMethod();
             num++;
-            return method.invoke(aspectModel.getO(), proceedingJoinPoint);
+            if (!StringTool.isEmpty(aspectModel.getMethodFilter())) {
+                if (aspectModel.getMethodFilter().matches(proceedingJoinPoint.getMethod().getName())) {
+                    return method.invoke(aspectModel.getInstance(), proceedingJoinPoint);
+                } else {
+                    return proceedingJoinPoint.proceed();
+                }
+            } else {
+                return method.invoke(aspectModel.getInstance(), proceedingJoinPoint);
+            }
         }
         return null;
     }

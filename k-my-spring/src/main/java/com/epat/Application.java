@@ -1,22 +1,10 @@
 package com.epat;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.epat.aspect.AspectFactory;
-import com.epat.beanDefinition.BeanDefinition;
-import com.epat.beanDefinition.BeanDefinitionLoader;
+import com.epat.bean.BeanFactory;
+import com.epat.annotation.config.ConfigModel;
+import com.epat.annotation.config.JsonConfigLoader;
+import com.epat.bean.BeanInstantiate;
+import com.epat.beanDefinition.loader.BeanDefinitionLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,18 +19,25 @@ public class Application {
 
     private BeanFactory beanFactory;
 
-    public Application (String location) {
+    public Application (String location) throws Exception {
         this.location = location;
-        beanFactory = new BeanFactory();
         init();
     }
 
-    public void init () {
-        loadBeanDefinitions();
-        createBean();
+    public void init () throws Exception{
+        beanFactory = BeanFactory.getInstance();
+        JsonConfigLoader jsonConfigLoader = new JsonConfigLoader();
+        ConfigModel configModel = jsonConfigLoader.loadConfig(location);
+        BeanDefinitionLoader.loadBeanDefinitions(beanFactory, configModel);
+        BeanInstantiate.createBean(beanFactory);
+        logger.info(beanFactory);
     }
 
-    public void loadBeanDefinitions() {
+    public Object getBean (String name) throws Exception {
+        return beanFactory.getBean(name);
+    }
+
+    /*public void loadBeanDefinitions() {
         File file = new File(Application.class.getClassLoader().getResource("").getPath() + File.separator + location);
         if (!file.exists()) {
             throw new RuntimeException("配置文件不存在");
@@ -65,9 +60,9 @@ public class Application {
             logger.error("配置文件读取出错", e);
             throw new RuntimeException("配置文件读取出错");
         }
-    }
+    }*/
 
-    public void loadBeanDefinitions(String config)  {
+    /*public void loadBeanDefinitions(String config)  {
         try {
             JSONObject json = JSON.parseObject(config);
             BeanDefinitionLoader.loadBeanDefinitions(beanFactory, json);
@@ -176,6 +171,6 @@ public class Application {
         }
         bean = doCreateBean(beanFactory.findBeanNameByType(type));
         return bean;
-    }
+    }*/
 
 }

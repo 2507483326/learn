@@ -1,35 +1,28 @@
 package com.epat.aspect;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.lang.reflect.Method;
 
 /**
  * @author 李涛
  * @date : 2021/7/7 12:07
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AspectModel {
+
+    private String name;
 
     private Method method;
 
-    private Object o;
+    private Object instance;
 
-    public Method getMethod() {
-        return method;
-    }
+    private String methodFilter;
 
-    public void setMethod(Method method) {
-        this.method = method;
-    }
+    private String classNameFilter;
 
-    public Object getO() {
-        return o;
-    }
-
-    public void setO(Object o) {
-        this.o = o;
-    }
-
-    public AspectModel(Method method, Object o) {
-        this.method = method;
-        this.o = o;
-    }
 }

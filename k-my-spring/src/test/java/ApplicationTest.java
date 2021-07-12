@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 public class ApplicationTest {
     public static Logger logger =  LogManager.getLogger(ApplicationTest.class);
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws Exception {
         Application application = new Application("application.json");
         Controller controller = (Controller) application.getBean("controller");
         controller.say();

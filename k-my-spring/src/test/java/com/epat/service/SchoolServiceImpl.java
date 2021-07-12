@@ -1,7 +1,7 @@
 package com.epat.service;
 
-import com.epat.annotation.Autowired;
-import com.epat.annotation.Service;
+import com.epat.annotation.bean.Autowired;
+import com.epat.annotation.type.Service;
 import com.epat.model.School;
 
 /**

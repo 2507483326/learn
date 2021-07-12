@@ -14,28 +14,4 @@ public class StringTool {
         return  str.substring(0,1).toLowerCase().concat(str.substring(1));
     }
 
-    public static String getPackageClass (String descriptor) {
-        if (descriptor.startsWith("L")) {
-            descriptor = descriptor.substring(1);
-        }
-
-        descriptor = descriptor.replace("/", ".");
-        if (descriptor.endsWith(";")){
-            descriptor = descriptor.substring(0, descriptor.length() - 1);
-        }
-        return descriptor;
-    }
-
-    public static String getClass (String descriptor) {
-        String packageClass = getPackageClass(descriptor);
-        int index = packageClass.lastIndexOf(".");
-        return packageClass.substring(index + 1);
-    }
-
-    public static String getClassName (String descriptor) {
-        String packageClass = getPackageClass(descriptor);
-        int index = packageClass.lastIndexOf(".");
-        return toLowCaseFirstChar(packageClass.substring(index + 1));
-    }
-
 }

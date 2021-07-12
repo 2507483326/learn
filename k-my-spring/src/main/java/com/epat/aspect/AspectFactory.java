@@ -1,10 +1,14 @@
 package com.epat.aspect;
 
+import com.epat.bean.BeanFactory;
+import com.epat.beanDefinition.BeanDefinition;
+import com.epat.tool.StringTool;
 import net.sf.cglib.proxy.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 李涛
@@ -12,37 +16,47 @@ import java.util.List;
  */
 public class AspectFactory {
 
-    private List<Object> aspectList;
 
-    private static List<AspectModel> aspectMethodList = null;
-
-    public AspectFactory(List<Object> aspectList) {
-        this.aspectList = aspectList;
-        try {
-            initMethod();
-        } catch (Exception e) {
-            throw new RuntimeException("初始化切面失败");
+    public static Object proxy (BeanFactory beanFactory, BeanDefinition beanDefinition, Object bean) {
+        if (beanDefinition.getIsFactoryBean()) {
+            return bean;
         }
-    }
-
-    public Object instantiate (Object bean) {
-        BaseAspect baseAspect = new BaseAspect(aspectMethodList);
+        List<AspectModel> aspectModels = initAspectList((Class) beanDefinition.getClazz(), beanFactory.getAspectList());
+        if (aspectModels == null || aspectModels.size() == 0) {
+            return bean;
+        }
+        BaseAspect baseAspect = new BaseAspect(aspectModels);
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(bean.getClass());
         enhancer.setCallbacks(new Callback[]{baseAspect, NoOp.INSTANCE});
         enhancer.setCallbackFilter(new CallbackFilter() {
             @Override
             public int accept(Method method) {
-                if (method.getName().equals("toString")) {
+                if (method.getDeclaringClass().getName().equals(Object.class.getName())) {
                     return 1;
                 }
                 return 0;
             }
         });
-        return enhancer.create();
+        Object newBean = enhancer.create();
+        return newBean;
     }
 
-    public void initMethod () throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public static List<AspectModel> initAspectList (Class clazz, List<AspectModel> aspectModels) {
+        List<AspectModel> filterList = aspectModels.stream().filter(i -> {
+            if (!StringTool.isEmpty(i.getClassNameFilter())) {
+                if (clazz.getName().matches(i.getClassNameFilter())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }).collect(Collectors.toList());
+        return filterList;
+    }
+
+/*    public void initMethod () throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         if (aspectMethodList != null) {
             return;
         }
@@ -55,8 +69,8 @@ public class AspectFactory {
                 clazz = (Class) o;
             }
             Method method = clazz.getMethod("around", ProceedingJoinPoint.class);
-            aspectMethodList.add(new AspectModel(method, clazz.newInstance()));
+            // aspectMethodList.add(new AspectModel(method, clazz.newInstance()));
         }
-    }
+    }*/
 
 }

@@ -1,7 +1,7 @@
 package com.epat;
 
-import com.epat.annotation.Autowired;
-import com.epat.annotation.Component;
+import com.epat.annotation.bean.Autowired;
+import com.epat.annotation.type.Component;
 import com.epat.service.SchoolService;
 
 /**
@@ -11,7 +11,7 @@ import com.epat.service.SchoolService;
 @Component
 public class Controller {
 
-    @Autowired
+    @Autowired(value = "test")
     private SchoolService schoolService;
 
     public void say () {

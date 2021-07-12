@@ -1,10 +1,8 @@
 package com.epat.model;
 
-import com.epat.annotation.Aspect;
+import com.epat.annotation.bean.Around;
+import com.epat.annotation.bean.Aspect;
 import com.epat.aspect.ProceedingJoinPoint;
-import net.sf.cglib.proxy.*;
-
-import java.lang.reflect.Method;
 
 
 /**
@@ -14,6 +12,7 @@ import java.lang.reflect.Method;
 @Aspect
 public class TestAspect {
 
+    @Around
     public Object around (ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         System.out.println("=================TestAspect调用前1====================");
         Object result = proceedingJoinPoint.proceed();

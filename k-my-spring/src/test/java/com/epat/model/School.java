@@ -1,6 +1,6 @@
 package com.epat.model;
 
-import com.epat.annotation.Component;
+import com.epat.annotation.type.Component;
 
 /**
  * @author 李涛

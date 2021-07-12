@@ -1,13 +1,17 @@
 package com.epat.beanDefinition;
 
-import com.epat.Property;
+import lombok.Data;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author 李涛
  * @date : 2021/7/5 12:07
  */
+@Data
 public class BeanDefinition {
 
     private String id;
@@ -16,69 +20,20 @@ public class BeanDefinition {
 
     private Boolean isSingle;
 
-    private List<Property> propertyList;
+    private Boolean isFactoryBean = false;
 
-    private Boolean isCreate = false;
+    private List<Property> propertyList = new ArrayList<>();
 
-    private List<String> annotations;
+    private Boolean isInstantiation = false;
 
-    public String getId() {
-        return id;
-    }
+    private Boolean isPrimary = false;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String factoryBeanId;
 
-    public Object getClazz() {
-        return clazz;
-    }
+    private Method factoryBeanMethod;
 
-    public void setClazz(Object clazz) {
-        this.clazz = clazz;
-    }
+    private List<Parameter> parameters;
 
-    public Boolean getSingle() {
-        return isSingle;
-    }
+    private List<AnnotationWrapper> annotations = new ArrayList<>();
 
-    public void setSingle(Boolean single) {
-        isSingle = single;
-    }
-
-    public List<Property> getPropertyList() {
-        return propertyList;
-    }
-
-    public void setPropertyList(List<Property> propertyList) {
-        this.propertyList = propertyList;
-    }
-
-    public Boolean getCreate() {
-        return isCreate;
-    }
-
-    public void setCreate(Boolean create) {
-        isCreate = create;
-    }
-
-    public List<String> getAnnotations() {
-        return annotations;
-    }
-
-    public void setAnnotations(List<String> annotations) {
-        this.annotations = annotations;
-    }
-
-    @Override
-    public String toString() {
-        return "BeanDefinition{" +
-                "id='" + id + '\'' +
-                ", clazz=" + clazz +
-                ", isSingle=" + isSingle +
-                ", propertyList=" + propertyList +
-                ", isCreate=" + isCreate +
-                ", annotations=" + annotations +
-                '}';
-    }
 }

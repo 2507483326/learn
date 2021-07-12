@@ -1,6 +1,7 @@
 package com.epat.model;
 
-import com.epat.annotation.Aspect;
+import com.epat.annotation.bean.Around;
+import com.epat.annotation.bean.Aspect;
 import com.epat.aspect.ProceedingJoinPoint;
 
 
@@ -11,6 +12,7 @@ import com.epat.aspect.ProceedingJoinPoint;
 @Aspect
 public class TestAspect2 {
 
+    @Around
     public Object around (ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         System.out.println("=================TestAspect2调用前1====================");
         Object result = proceedingJoinPoint.proceed();

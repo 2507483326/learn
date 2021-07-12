@@ -1,5 +1,6 @@
 package com.epat.aspect;
 
+import lombok.Data;
 import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
@@ -8,6 +9,7 @@ import java.lang.reflect.Method;
  * @author 李涛
  * @date : 2021/7/6 22:18
  */
+@Data
 public class ProceedingJoinPoint {
 
     private Object o;
