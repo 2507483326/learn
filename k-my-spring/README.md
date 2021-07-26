@@ -59,9 +59,56 @@ public static void main(String[] args) throws Exception {
 
 #### 2.1 bean
 
-|      |      |      |
-| ---- | ---- | ---- |
-|      |      |      |
-|      |      |      |
-|      |      |      |
+bean相关属性
+
+| 名称     | 类型    | 说明                     |
+| -------- | ------- | ------------------------ |
+| id       | String  | bean的id                 |
+| class    | String  | bean对应实例化的类全名   |
+| isSingle | Boolean | 是否单例（暂时没有实现） |
+| property | List    | 实例化所需要注入的属性   |
+
+property相关属性
+
+| 名称  | 类型   | 说明                                   |
+| ----- | ------ | -------------------------------------- |
+| key   | String | 属性名称                               |
+| value | Object | 直接的属性值,注意和ref属性只能存在一个 |
+| ref   | String | 需要注入的bean名称                     |
+| type  | String | 属性类型全名                           |
+
+#### 2.2 componentScan
+
+| 名称          | 类型   | 说明           |
+| ------------- | ------ | -------------- |
+| componentScan | String | 定义包扫描路径 |
+
+```
+{
+	"bean": [],
+	"componentScan": "com.epat"
+}
+```
+
+### 3. 注解的使用
+
+#### 3.1 Component注解
+
+该注解标记为该类会被beanFactory所管理
+
+```
+@Component(name = "a")
+public class A {
+}
+```
+
+### 3.2 Service注解
+
+该注解标记为该类会被beanFactory所管理
+
+```
+@Service(name = "a")
+public class A {
+}
+```
 

@@ -1,9 +1,6 @@
 package factory;
 
-import handler.AbstractFileHandler;
-import handler.ChannelFileHandler;
-import handler.NormalFileHandler;
-import handler.ThreadFileHandler;
+import handler.*;
 
 /**
  * @author 李涛
@@ -17,6 +14,8 @@ public class CopyHandlerFactory {
     public static Integer CHANNEL = 2;
     // 多线程
     public static Integer THREAD = 3;
+    // 零拷贝
+    public static Integer ZERO = 4;
 
 
     public static AbstractFileHandler getFileHandler (Integer type) {
@@ -28,6 +27,9 @@ public class CopyHandlerFactory {
         }
         if (type.intValue() == THREAD.intValue()) {
             return ThreadFileHandler.getInstance();
+        }
+        if (type.intValue() == ZERO.intValue()) {
+            return ZeroFileHandler.getInstance();
         }
         return null;
     }
