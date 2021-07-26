@@ -18,7 +18,7 @@ public class Main {
 
     public static void main (String [] args)  {
         CopyModel copyModel = CopyConfig.loadCopyModel();
-        AbstractFileHandler abstractFileHandler = CopyHandlerFactory.getFileHandler(CopyHandlerFactory.ZERO);
+        AbstractFileHandler abstractFileHandler = CopyHandlerFactory.getFileHandler(CopyHandlerFactory.CopyMode.ZERO_COPY);
         long startTime=System.currentTimeMillis();
         abstractFileHandler.copyAllFile(copyModel);
         long endTime=System.currentTimeMillis();

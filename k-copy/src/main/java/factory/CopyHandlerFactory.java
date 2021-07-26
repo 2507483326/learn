@@ -8,27 +8,31 @@ import handler.*;
  */
 public class CopyHandlerFactory {
 
-    // 普通
-    public static Integer NORMAL = 1;
-    // nio
-    public static Integer CHANNEL = 2;
-    // 多线程
-    public static Integer THREAD = 3;
-    // 零拷贝
-    public static Integer ZERO = 4;
+
+    public static class CopyMode {
+
+        // 普通
+        public static Integer NORMAL = 1;
+        // nio
+        public static Integer CHANNEL = 2;
+        // 多线程
+        public static Integer THREAD = 3;
+        // 零拷贝
+        public static Integer ZERO_COPY = 4;
+    }
 
 
     public static AbstractFileHandler getFileHandler (Integer type) {
-        if (type.intValue() == NORMAL.intValue()) {
+        if (type.intValue() == CopyMode.NORMAL.intValue()) {
             return NormalFileHandler.getInstance();
         }
-        if (type.intValue() == CHANNEL.intValue()) {
+        if (type.intValue() == CopyMode.CHANNEL.intValue()) {
             return ChannelFileHandler.getInstance();
         }
-        if (type.intValue() == THREAD.intValue()) {
+        if (type.intValue() == CopyMode.THREAD.intValue()) {
             return ThreadFileHandler.getInstance();
         }
-        if (type.intValue() == ZERO.intValue()) {
+        if (type.intValue() == CopyMode.ZERO_COPY.intValue()) {
             return ZeroFileHandler.getInstance();
         }
         return null;
