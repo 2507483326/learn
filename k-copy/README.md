@@ -20,6 +20,7 @@ abstractFileHandler.copyAllFile(new File("A文件夹路径"), new File("B文件�
 1. CopyHandlerFactory.NORMAL // 通过普通的java io 流进行复制
 2. CopyHandlerFactory.CHANNEL // 通过java nio 文件通道的方式进行复制,速度会比普通的方式快
 3. CopyHandlerFactory.THREAD // 通过创建多个线程的方式进行复制，一般用于复制单个超大文件
+4. CopyHanderFactory.ZERO // 通过zero copy方式进行复制
 ```
 
 #### 2.3 copyAllFile 相关参数讲解
